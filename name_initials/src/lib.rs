@@ -7,7 +7,7 @@ pub fn initials(names: Vec<&str>) -> Vec<String> {
             initials+= &(String::from(name.chars().nth(0).unwrap())+". ");
         }
         new.push(String::from(initials.trim()));
-        initials =String::new();
+        initials.clear();
 
     }
     return new;
