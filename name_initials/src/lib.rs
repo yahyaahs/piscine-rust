@@ -1,5 +1,5 @@
 pub fn initials(names: Vec<&str>) -> Vec<String> {
-    let mut new = Vec::new();
+    let mut new = vec![];
     let mut initials = String::new();
 
     for words in names{
