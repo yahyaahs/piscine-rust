@@ -6,6 +6,7 @@ fn main() {
     let mut i = 1;
     loop {
         println!("{}", output);
+        input.clear();
         let _ = stdin.read_line(input);
         if input == "The letter e\n" {
             println!("Number of trials: {}", i);
