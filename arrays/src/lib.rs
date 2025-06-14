@@ -1,6 +1,6 @@
 pub fn sum(a: &[i32]) -> i32 {
     let mut sum = 0;
-    for n in nums {
+    for n in a {
         sum+= n;
     }
     sum
