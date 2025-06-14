@@ -1,6 +1,6 @@
 pub fn arrange_phrase(phrase: &str) -> String {
     let mut i = 1;
-    let mut new:Vec<String>= vec![];
+    let mut new= vec![];
     while new.len() < phrase.split_whitespace().collect::<Vec<_>>().len(){
         for words in phrase.split_whitespace(){
             if words.contains(&i.to_string()){
