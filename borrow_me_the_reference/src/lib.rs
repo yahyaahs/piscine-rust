@@ -29,7 +29,7 @@ pub fn do_operations(v: &mut [String]) {
                 sum+= n.parse::<i32>().unwrap();
             }
         }else if op.contains("-") {
-            let mut nums = op.split("-");
+            let mut nums: std::str::Split<'_, &'static str> = op.split("-");
             sum = nums.nth(0).unwrap().parse::<i32>().unwrap() - nums.nth(0).unwrap().parse::<i32>().unwrap();
         }
         *op = sum.to_string();
