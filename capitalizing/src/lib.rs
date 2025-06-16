@@ -7,11 +7,21 @@ pub fn capitalize_first(input: &str) -> String {
 }
 
 pub fn title_case(input: &str) -> String {
-    let mut new = vec![];
-    for word in input.split_whitespace(){
-        new.push(capitalize_first(word));
+    let mut result = String::new();
+    let mut capitalize_next = true;
+
+    for c in input.chars() {
+        if c.is_whitespace() {
+            result.push(c);
+            capitalize_next = true;
+        } else if capitalize_next {
+            result.push(c.to_uppercase().next().unwrap());
+            capitalize_next = false;
+        } else {
+            result.push(c.to_lowercase().next().unwrap());
+        }
     }
-    new.join(" ")
+    result
 }
 
 pub fn change_case(input: &str) -> String {
@@ -33,6 +43,6 @@ mod tests {
     fn it_works() {
     println!("{}", capitalize_first("joe is missing"));
         println!("{}", title_case("jill is leaving A"));
-            println!("{}", change_case("heLLo THere"));
+            println!("{}", change_case("Hello My Name Is Carl"));
     }
 }
