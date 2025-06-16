@@ -1,4 +1,7 @@
 pub fn capitalize_first(input: &str) -> String {
+    if input.is_empty(){
+        return "".to_string();
+    }
     input.chars().next().unwrap().to_uppercase().to_string()+ &input[1..]
 
 }
@@ -12,15 +15,15 @@ pub fn title_case(input: &str) -> String {
 }
 
 pub fn change_case(input: &str) -> String {
-    let mut new : Vec<char>= vec![];
+    let mut new = String::new();
     for c in input.chars(){
-        if c.is_uppercase() && !c.is_numeric(){
+        if c.is_uppercase(){
             new.push(c.to_lowercase().next().unwrap());
         }else if !c.is_numeric(){
             new.push(c.to_uppercase().next().unwrap());
         }
     }
-    new.iter().collect()
+    new
 }
 #[cfg(test)]
 mod tests {
