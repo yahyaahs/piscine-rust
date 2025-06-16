@@ -1,6 +1,6 @@
 pub fn bubble_sort(arr: &mut [i32]) {
     while !arr.is_sorted(){
-        for i in 1..arr.len()-1{
+        for i in 1..arr.len(){
             if arr[i]< arr[i-1]{
                 arr.swap(i, i-1)
             }
