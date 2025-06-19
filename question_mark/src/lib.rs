@@ -1,18 +1,18 @@
 pub struct One {
     // expected public fields
-    first_layer : Option<Two>,
+    pub first_layer : Option<Two>,
 }
 pub struct Two {
     // expected public fields
-    second_layer : Option<Three>,
+    pub second_layer : Option<Three>,
 }
 pub struct Three {
     // expected public fields
-    third_layer : Option<Four>,
+    pub third_layer : Option<Four>,
 }
 pub struct Four {
     // expected public fields
-    fourth_layer : Option<u16>,
+    pub fourth_layer : Option<u16>,
 }
 
 impl One {
