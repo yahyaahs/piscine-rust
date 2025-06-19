@@ -17,7 +17,7 @@ pub fn fetch_data(server: Result<&str, &str>, security_level: Security) -> Strin
             
         }
         Security::UnexpectedUrl => server.unwrap_err().to_string(),
-        Security::Message=> server.expect("ERROR : program stops").to_string(),
+        Security::Message=> server.expect("ERROR: program stops").to_string(),
     }
 }
 #[cfg(test)]
