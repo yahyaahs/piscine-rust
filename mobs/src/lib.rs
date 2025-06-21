@@ -1,9 +1,10 @@
 pub mod mobs;
-pub use mobs::{
+pub use crate::mobs::{
     Mob,
     Boss,
-    Member,
+    member,
     Role,
+    Member
 };
 
 
