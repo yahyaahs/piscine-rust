@@ -1,12 +1,13 @@
 pub mod edit_distance;
 use edit_distance::edit_distance;
-pub fn expected_variable(first : &str, sec :&str)->Option<String>{
-    if first.len() == 0 || sec.len() == 0{
+pub fn expected_variable(first: &str, sec: &str) -> Option<String> {
+    let steps = edit_distance(&first.to_lowercase(), &sec.to_lowercase());
+  if first.contains(" ")||!first.contains("_") && !sec.chars().nth(0).unwrap().is_uppercase()&& steps==0 {
         return None;
     }
-    let steps = edit_distance(&first.to_lowercase(), &sec.to_lowercase());
-    let calc = (sec.len()- steps) as f64/sec.len() as f64*100.;
-    if calc  < 50. {
+    println!("these are the steps {}", steps);
+    let calc = (sec.len() as f64 - steps as f64) as f64 / sec.len() as f64 * 100.;
+    if calc < 50. {
         return None;
     }
     return Some(format!("{}%", calc.round().to_string()));
@@ -15,10 +16,9 @@ pub fn expected_variable(first : &str, sec :&str)->Option<String>{
 #[cfg(test)]
 mod tests {
     use super::*;
-
     #[test]
     fn it_works() {
-            println!(
+    println!(
         "{} close to it",
         expected_variable("On_Point", "on_point").unwrap()
     );
@@ -36,3 +36,4 @@ mod tests {
     );
     }
 }
+

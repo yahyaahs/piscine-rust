@@ -3,8 +3,11 @@ pub fn edit_distance(source: &str, target: &str) -> usize {
     let l2 = target.len();
     let source_chars: Vec<char> = source.chars().collect();
     let target_chars: Vec<char> = target.chars().collect();
+    // if l1 ==0 || l2 ==0 {
+    //     return 0;
+    // }
 
-    let mut matrix = vec![vec![0; l2 + 1]; l2 + 1];
+    let mut matrix = vec![vec![0; l2 + 1]; l1 + 1];
 
     for i in 0..=l1 {
         for j in 0..=l2 {
