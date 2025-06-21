@@ -1,6 +1,9 @@
 pub mod edit_distance;
-use edit_distance::*;
+use edit_distance::edit_distance;
 pub fn expected_variable(first : &str, sec :&str)->Option<String>{
+    if first.len() == 0 || sec.len() == 0{
+        return None;
+    }
     let steps = edit_distance(&first.to_lowercase(), &sec.to_lowercase());
     let calc = (sec.len()- steps) as f64/sec.len() as f64*100.;
     if calc  < 50. {
