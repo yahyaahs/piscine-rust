@@ -1,4 +1,4 @@
-pub mod mobs;
+ mod mobs;
 pub use crate::mobs::{
     Mob,
     Boss,
