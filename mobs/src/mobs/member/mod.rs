@@ -15,10 +15,10 @@ pub struct Member{
 impl Member {
     pub fn get_promotion(&mut self){
         self.role = match self.role {
-            Role::Underboss => Role::Soldier,
+            Role::Underboss => panic!(),
             Role::Soldier => Role::Caporegime,
-            Role::Caporegime => Role::Associate,
-            Role::Associate => Role::Underboss,
+            Role::Caporegime => Role::Underboss,
+            Role::Associate => Role::Soldier,
         };
     }
 }

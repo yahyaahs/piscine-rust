@@ -28,10 +28,12 @@ impl Mob {
     pub fn steal(&mut self, targe: &mut Mob, amount: u64) {
         if targe.wealth >= amount {
             targe.wealth -= amount;
+            self.wealth += amount;
         } else {
+            self.wealth += targe.wealth;
             targe.wealth = 0;
+
         }
-        self.wealth += amount;
     }
     pub fn conquer_city(&mut self, mobs: &[&Mob], city: String) {
         let city_taken = mobs.iter().any(|mob| mob.cities.contains(&city));
