@@ -1,6 +1,4 @@
 pub mod edit_distance;
-use std::fmt::format;
-
 use edit_distance::*;
 pub fn expected_variable(first : &str, sec :&str)->Option<String>{
     let steps = edit_distance(&first.to_lowercase(), &sec.to_lowercase());
