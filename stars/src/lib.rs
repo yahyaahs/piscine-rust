@@ -1,6 +1,8 @@
-pub fn add(left: usize, right: usize) -> usize {
-    left + right
+pub fn stars(n: u32) -> String {
+    let s = "*".to_string().repeat((2 as i32).pow(n as u32)as usize);
+    return s;
 }
+
 
 #[cfg(test)]
 mod tests {
