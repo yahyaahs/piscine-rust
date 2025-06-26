@@ -28,7 +28,7 @@ impl GameSession {
 
     }
     pub fn update_score(&mut self, user_name: String) {
-        if self.p1.1 + self.p2.1 >= self.nb_games {
+        if self.p1.1 + self.p2.1 >= self.nb_games/2+1 {
             return
         }
         if self.p1.0 == user_name{
@@ -46,6 +46,14 @@ impl GameSession {
 #[cfg(test)]
 mod tests {
     use super::*;
+      fn create_games() -> Vec<Box<GameSession>> {
+        vec![
+            GameSession::new(0, String::from("player1"), String::from("player2"), 1),
+            GameSession::new(1, String::from("Alice"), String::from("Mark"), 3),
+            GameSession::new(2, String::from("Jack"), String::from("Miller"), 5),
+        ]
+    }
+
 
     #[test]
     fn it_works() {
@@ -53,16 +61,19 @@ mod tests {
     println!("{:?}", game.read_winner());
     // output : ("Same score! tied", 0)
 
-    game.update_score(String::from("Joao"));
-    game.update_score(String::from("Joao"));
     game.update_score(String::from("Susana"));
     game.update_score(String::from("Susana"));
-    println!("{:?}", game.read_winner());
+    game.update_score(String::from("Susaa"));
+
+    // println!("{:?}", game.read_winner());
     // output : ("Same score! tied", 2)
 
-    game.update_score(String::from("Joao"));
     // this one will not count because it already 5 games played, the nb_games
-    game.update_score(String::from("Susana"));
+    game.update_score(String::from("Susna"));
+    game.update_score(String::from("Susa"));
+    game.update_score(String::from("Susan"));
+
+
 
     println!("{:?}", game.read_winner());
     // output : ("Joao", 3)
@@ -73,5 +84,20 @@ mod tests {
     // game.read_winner();
     // this will give error
     // because the game was dropped, no longer exists on the heap
+    }
+
+    #[test]
+    fn test_stop_updating() {
+        let mut games = create_games();
+        games[0].update_score(String::from("player1"));
+        games[0].update_score(String::from("player1"));
+        assert_eq!(games[0].read_winner(), (String::from("player1"), 1));
+
+        games[2].update_score(String::from("Jack"));
+        games[2].update_score(String::from("Jack"));
+        games[2].update_score(String::from("Jack"));
+        games[2].update_score(String::from("Jack"));
+        games[2].update_score(String::from("Jack"));
+        assert_eq!(games[2].read_winner(), (String::from("Jack"), 3));
     }
 }
