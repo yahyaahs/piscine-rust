@@ -28,9 +28,11 @@ impl GameSession {
 
     }
     pub fn update_score(&mut self, user_name: String) {
-        if self.p1.1 + self.p2.1 >= self.nb_games/2+1 {
-            return
+        let maj = (self.nb_games/2) +1;
+        if self.p1.1 >= maj || self.p2.1 >= maj{
+            return ;
         }
+
         if self.p1.0 == user_name{
             self.p1.1 += 1;
         }else if self.p2.0 == user_name {
@@ -55,6 +57,30 @@ mod tests {
     }
 
 
+    #[test]
+    fn test_update_and_read() {
+        let mut games = create_games();
+        games[0].update_score(String::from("player1"));
+        assert_eq!(games[0].read_winner(), (String::from("player1"), 1));
+
+        games[0].update_score(String::from("player2"));
+        // this will stay the same because the nb_games is 1 so if one
+        // of the players wins just once it will no longer increment the score
+        assert_eq!(games[0].read_winner(), (String::from("player1"), 1));
+
+        games[2].update_score(String::from("Jack"));
+        games[2].update_score(String::from("Jack"));
+        games[2].update_score(String::from("Miller"));
+        games[2].update_score(String::from("Miller"));
+        // tie between players
+        assert_eq!(
+            games[2].read_winner(),
+            (String::from("Same score! tied"), 2)
+        );
+
+        games[2].update_score(String::from("Jack"));
+        assert_eq!(games[2].read_winner(), (String::from("Jack"), 3));
+    }
     #[test]
     fn it_works() {
             let mut game = GameSession::new(0, String::from("Joao"), String::from("Susana"), 5);
