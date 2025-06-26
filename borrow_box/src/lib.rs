@@ -1,4 +1,3 @@
-use std::fmt::format;
 
 #[derive(Debug, Clone, Eq, PartialEq)]
 pub struct GameSession {
@@ -44,7 +43,7 @@ impl GameSession {
 
     }
 }
-#[cfqg(test)]
+#[cfg(test)]
 mod tests {
     use super::*;
 
