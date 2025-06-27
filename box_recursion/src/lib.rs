@@ -47,12 +47,15 @@ impl WorkEnvironment {
             self.grade = None;
             return Some(name);
             }else {
-            let mut head = self.grade.as_mut().unwrap();
-            while !head.next.as_ref().unwrap().next.is_none() {
-                head = head.next.as_mut().unwrap();
-            }
-            head.next = None;
-            return Some(head.name.clone());
+            // let mut head = self.grade.as_mut().unwrap();
+            // while !head.next.as_ref().unwrap().next.is_none() {
+            //     head = head.next.as_mut().unwrap();
+            // }
+            // head.next = None;
+            // return Some(head.name.clone());
+            self.grade.as_mut().unwrap().next = None;
+                return Some(self.grade.as_mut().unwrap().name.clone());
+
         }
     }
     pub fn last_worker(&self) -> Option<(String, String)> {
