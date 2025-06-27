@@ -54,11 +54,7 @@ impl WorkEnvironment {
         }
     }
     pub fn last_worker(&self) -> Option<(String, String)> {
-        let mut  head = self.grade.as_ref()?;
-        while !head.next.is_none(){
-            head = head.next.as_ref().unwrap();
-        }
-        return Some((head.name.clone(), head.role.clone()));
+        return Some((self.grade.as_ref().unwrap().name.clone(), self.grade.as_ref().unwrap().role.clone()));
     }
 }
 #[cfg(test)]
