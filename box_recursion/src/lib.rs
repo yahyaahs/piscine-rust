@@ -27,14 +27,13 @@ impl WorkEnvironment {
                     name,
                     next : Some(item),
                 }));
-                 println!("went through some");
             },
             None => {self.grade = Some(Box::new(Worker{
                 role,
                 name,
                 next : None,
             }));
-            println!("went through none")},
+        },
         }
 
     }
