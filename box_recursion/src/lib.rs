@@ -40,9 +40,15 @@ impl WorkEnvironment {
     pub fn remove_worker(&mut self) -> Option<String> {
         if self.grade.is_none(){
             return None;
-        }else {
+        
+        }else if self.grade.as_ref().unwrap().next.is_none(){
+            // self.grade = None;
+            let name = self.grade.as_ref().unwrap().name.clone();
+            self.grade = None;
+            return Some(name);
+            }else {
             let mut head = self.grade.as_mut().unwrap();
-            while !head.next.is_none() {
+            while !head.next.as_ref().unwrap().next.is_none() {
                 head = head.next.as_mut().unwrap();
             }
             head.next = None;
