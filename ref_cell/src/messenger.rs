@@ -1,6 +1,5 @@
 use std::rc::Rc;
 
-use crate::Worker;
 
 pub trait Logger {
      fn warning(&self, msg: &str);
@@ -10,19 +9,19 @@ pub trait Logger {
 
 pub struct Tracker<'a> {
     pub logger: &'a dyn Logger,
-    pub value: &'a Rc<i32>, //ref
+    pub value: Rc<usize>, //ref
     pub max: i32,
 }
 
 impl<'a> Tracker<'a> {
-    pub fn new(worker: &'a Worker, max: i32) -> Self {
+    pub fn new(worker: &'a dyn Logger, max: i32) -> Self {
         Tracker {
             logger: worker,
-            value: &worker.track_value,
+            value: Rc::new(0),
             max: max,
         }
     }
-    pub fn set_value(&self, i: &Rc<i32>) {
+    pub fn set_value<T>(&self, i: &Rc<T>) {
         let count = Rc::strong_count(i);
         let percentage = (count as f64 / self.max as f64) * 100.0;
         let percent_int = percentage as u32;
@@ -36,7 +35,7 @@ impl<'a> Tracker<'a> {
         }
     }
 
-    pub fn peek(&self, i: &Rc<i32>) {
+    pub fn peek<T>(&self, i: &Rc<T>) {
         let count = Rc::strong_count(i);
         let percentage = (count as f64 / self.max as f64) * 100.0;
         let percent_int = percentage as u32;
