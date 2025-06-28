@@ -1,11 +1,9 @@
-use std::ops::Deref;
 use std::rc::Rc;
 
-use std::cell::RefCell;
 use crate::Worker;
 
 pub trait Logger {
-    fn warning(&self, msg: &str);
+     fn warning(&self, msg: &str);
     fn info(&self, msg: &str);
     fn error(&self, msg: &str);
 }

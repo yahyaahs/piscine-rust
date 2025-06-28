@@ -8,9 +8,9 @@ pub use messenger::*;
 
 #[derive(Debug)]
 pub struct Worker {
-    track_value: Rc<i32>,
-    mapped_messages: RefCell<HashMap<String, String>>,
-    all_messages: RefCell<Vec<String>>,
+    pub track_value: Rc<i32>,
+    pub mapped_messages: RefCell<HashMap<String, String>>,
+    pub all_messages: RefCell<Vec<String>>,
 }
 impl Worker {
     pub fn new(i: i32) -> Self {
@@ -20,9 +20,7 @@ impl Worker {
             all_messages: RefCell::new(Vec::new()),
         }
     }
-    pub fn Logger(&self, key: String, value: String) {
-        self.mapped_messages.borrow_mut().insert(key, value);
-    }
+
 }
 impl Logger for Worker {
     fn error(&self, msg: &str) {
@@ -41,7 +39,6 @@ impl Logger for Worker {
 
 #[cfg(test)]
 mod tests {
-    use std::rc;
 
     use super::*;
 
