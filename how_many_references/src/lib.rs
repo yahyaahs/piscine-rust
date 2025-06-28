@@ -13,7 +13,7 @@ impl Node {
         self.ref_list.push(element);
     }
     pub fn rm_all_ref(&mut self, element: Rc<String>) {
-        self.ref_list.retain(|el| Rc::strong_count(el)== 2 &&element!=*el);
+        self.ref_list.retain(|el| !Rc::ptr_eq(el, &element)&& element!=*el );
     }
 }
 
