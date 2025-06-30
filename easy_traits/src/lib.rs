@@ -26,7 +26,7 @@ impl AppendStr for StringValue {
         }
     }
     fn remove_punctuation_marks(&mut self) -> Self {
-        self.value = self.value.trim_matches(|c:char| c.is_ascii_punctuation()).to_string();
+        self.value = self.value.chars().filter(|c| !c.is_ascii_punctuation()).collect();
         Self {
             value: self.value.clone(),
         }
