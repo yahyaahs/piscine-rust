@@ -2,7 +2,7 @@ use std::ops::Deref;
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct List<T> {
-    pub head: Option<Box<Node<T>>>,
+    pub head: Option<Node<T>>,
 }
 
 #[derive(Clone, Debug, PartialEq)]
@@ -21,25 +21,25 @@ impl<T> List<T> {
             Some(_) => {
                 let new = Box::new(Node {
                     value,
-                    next: self.head.take(),
+                    next: Some(Box::new(self.head.take().unwrap())),
                 });
-                self.head = Some(new);
+                self.head = Some(*new);
             }
-            _ => self.head = Some(Box::new(Node { value, next: None })),
+            _ => self.head = Some(Node { value, next: None }),
         }
     }
 
     pub fn pop(&mut self) {
-        self.head.take().map(|f|{
-            self.head = f.next;
-        });
+        if let Some(node)=self.head.take(){
+            self.head = node.next.map(|v| *v)
+        }
     }
 
     pub fn len(&self) -> usize {
         let mut counter = 0;
-        let mut curr = &self.head;
+        let mut curr = self.head.as_ref();
         while let Some(node) = curr  {
-            curr = &node.next;
+            curr = node.next.as_deref();
             counter+=1;
         }
         return counter as usize;
@@ -53,7 +53,7 @@ mod tests {
     fn it_works() {
         let mut new_list_str = List::new();
         new_list_str.push("String Test 1");
-        println!("The size of the list is {:#?}", new_list_str.len());
+        println!("The size of the list is {:#?}", new_list_str);
 
         new_list_str.push("String Test 2");
         println!("The size of the list is {}", new_list_str.len());
