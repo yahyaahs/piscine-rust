@@ -18,19 +18,27 @@ impl AppendStr for StringValue {
             value: self.value.clone(),
         }
     }
-    fn append_number(&mut self, nb_to_append: f64) -> Self {
-        let nb = nb_to_append as i64;
-        let nb1 = nb.abs();
-        self.value.push_str(&nb1.to_string());
-        Self {
-            value: self.value.clone(),
-        }
+fn append_number(&mut self, nb_to_append: f64) -> Self {
+    let s = if nb_to_append.fract() == 0.0 {
+        format!("{}", nb_to_append)
+    } else if self.value.contains("-") {
+        format!("{}", nb_to_append)
+    } else {
+        format!("{}", nb_to_append)
+    };
+
+    self.value.push_str(&s);
+    
+    Self {
+        value: self.value.clone(),
     }
+}
+
     fn remove_punctuation_marks(&mut self) -> Self {
         self.value = self
             .value
             .chars()
-            .filter(|c| !c.is_ascii_punctuation())
+            .filter(|c| *c !='.'&& *c!=','&& *c!='?' && *c != '!')
             .collect();
         Self {
             value: self.value.clone(),
@@ -55,7 +63,22 @@ mod tests {
 
         str_aux.remove_punctuation_marks();
         println!("After removing punctuation: {}", str_aux.value);
-        str_aux.append_number(-123.456);
-        println!("After appending number: {}", str_aux.value);
+    }
+      #[test]
+    fn test_append_number() {
+        let mut str_aux = StringValue {
+            value: String::from(""),
+        };
+
+        assert_eq!(String::from("-1"), str_aux.append_number(-1.0).value);
+
+        assert_eq!(String::from("-15"), str_aux.append_number(5.0).value);
+
+        assert_eq!(String::from("-155.5"), str_aux.append_number(5.5).value);
+
+        assert_eq!(
+            String::from("-1555"),
+            str_aux.remove_punctuation_marks().value
+        );
     }
 }
