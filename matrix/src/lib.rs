@@ -73,11 +73,9 @@ impl <T: Scalar<Item = T>> Matrix<T> {
 	}
 
 	pub fn identity(n: usize) -> Matrix<T> {
-        let mut m = Matrix::zero(4, 4);
-        for i in m.0{
-            for j in i {
-                j[0][0] = 1;
-            }
+        let mut m = Matrix::zero(n, n);
+        for i in 0..n{
+            m.0[i][i] = T::one();
         }
         return m;
 	}
@@ -90,8 +88,11 @@ mod tests {
     #[test]
     fn it_works(){
         	let m: Matrix<u32> = Matrix(vec![vec![0, 0, 0, 0], vec![0, 0, 0, 0], vec![0, 0, 0, 0]]);
+            
             	println!("{:?}", m);
+                	println!("{:?}", Matrix::<i32>::identity(4));
             println!("{:?}", Matrix::<f64>::zero(3, 4));
+
 
 
     }
