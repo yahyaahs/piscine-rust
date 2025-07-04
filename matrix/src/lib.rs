@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 pub struct Matrix<T>(pub Vec<Vec<T>>);
 use std::ops::{Add, Sub, Mul, Div};
 pub trait Scalar: Copy+ Add<Output = Self> + Sub<Output = Self> + Mul<Output = Self> + Div<Output = Self> {
