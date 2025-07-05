@@ -1,5 +1,5 @@
 
-fn first_fifty_even_square() -> Vec<i32> {
+pub fn first_fifty_even_square() -> Vec<i32> {
 
     let is_even = |n : i32| n % 2 == 0;
     let mut  v = Vec::new();
