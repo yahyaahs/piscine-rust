@@ -21,7 +21,7 @@ pub trait Vehicle {
 }
 
 impl <'a>Vehicle for Truck<'a> {
-    fn model(&self)->&str{
+     fn model(&self)->&str{
         return self.model;
     }
     fn year(&self)-> u32{
@@ -30,15 +30,15 @@ impl <'a>Vehicle for Truck<'a> {
 }
 
 impl <'a>Vehicle for Car<'a> {
-        fn model(&self)->&str{
+     fn model(&self)->&str{
         return self.model;
     }
-    fn year(&self)-> u32{
+     fn year(&self)-> u32{
         return self.year;
     }
 }
 
-fn all_models(list: Vec<&dyn Vehicle>) -> Vec<&str> {
+pub fn all_models(list: Vec<&dyn Vehicle>) -> Vec<&str> {
     let mut v = Vec::new();
     for vehicles in list{
         v.push(vehicles.model());
