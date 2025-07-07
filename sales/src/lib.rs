@@ -32,12 +32,14 @@ impl Cart {
         let find_cheapest = |v: &Vec<(String, f32)>| v.iter().take(count).map(|x| x.1).sum::<f32>();
         let base = find_cheapest(&self.buy);
         let total: f32 = self.buy.iter().map(|x| x.1).sum();
+        let bs = total - base;
         let reduction = |price: f32| {
-            let discounted = price - (price / total * base);
+            let discounted = (price/total)*bs;
             (discounted * 100.0).round() / 100.0
         };
         let mut  rec: Vec<f32> = self.receipt.iter().map(|&el| reduction(el)).collect();
-         rec.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        rec.sort_by(|a, b| a.partial_cmp(b).unwrap());
+        self.receipt = rec.clone();
         return rec;
     }
 }
@@ -45,24 +47,22 @@ impl Cart {
 #[cfg(test)]
 mod tests {
     use super::*;
-
     #[test]
-    fn it_works() {
-        let store = Store::new(vec![
-            (String::from("product A"), 1.23),
-            (String::from("product B"), 23.1),
-            (String::from("product C"), 3.12),
-        ]);
+    fn test(){
+            let store = Store::new(vec![
+        (String::from("product A"), 1.23),
+        (String::from("product B"), 23.1),
+        (String::from("product C"), 3.12)]);
 
-        println!("{:?}", store);
+    println!("{:?}", store);
 
-        let mut cart = Cart::new();
-        cart.insert_item(&store, String::from("product A"));
-        cart.insert_item(&store, String::from("product B"));
-        cart.insert_item(&store, String::from("product C"));
+    let mut cart = Cart::new();
+    cart.insert_item(&store, String::from("product A"));
+    cart.insert_item(&store, String::from("product B"));
+    cart.insert_item(&store, String::from("product C"));
 
-        println!("receipt generated {:?}", cart.generate_receipt());
+    println!("{:?}", cart.generate_receipt());
 
-        println!("{:?}", cart);
+    println!("{:?}", cart);
     }
 }
