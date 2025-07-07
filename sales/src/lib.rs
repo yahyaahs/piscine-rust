@@ -1,4 +1,3 @@
-use std::vec;
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Store {
@@ -31,7 +30,7 @@ impl Cart {
     pub fn generate_receipt(&mut self) -> Vec<f32> {
         let find_cheapest = |v : &Vec<f32>| v.iter().copied().reduce(|a, b| if a <b { a}else{b}).unwrap();
         let base = find_cheapest(&self.receipt);
-        let reduction = |price : f32| price - (self.buy.iter().sum()/(self.buy.iter().sum()-base));
+        let reduction: f32 = |price : f32| price - (self.buy.iter().sum()/(self.buy.iter().sum()-base));
         let rec: Vec<f32> = self.receipt.iter().map(|&el | reduction(el)).collect();
         return rec;
     }
