@@ -36,8 +36,10 @@ impl Cart {
             let discounted = price - (price / total * base);
             (discounted * 100.0).round() / 100.0
         };
-        let rec: Vec<f32> = self.receipt.iter().map(|&el| reduction(el)).collect();
+        let mut  rec: Vec<f32> = self.receipt.iter().map(|&el| reduction(el)).collect();
+         rec.sort_by(|a, b| a.partial_cmp(b).unwrap());
         return rec;
+;
     }
 }
 
