@@ -3,20 +3,30 @@ pub struct Numbers<'a> {
     numbers: &'a [u32],
 }
 
-impl Numbers {
-    pub fn new(numbers: &[u32]) -> Self {
+impl <'a>Numbers<'a> {
+    pub fn new(numbers: &'a[u32]) -> Self {
         Self{
             numbers,
         }
     }
 
-    pub fn list(&self) -> &[u32] {}
+    pub fn list(&self) -> &[u32] {
+        self.numbers
+    }
 
-    pub fn latest(&self) -> Option<u32> {}
+    pub fn latest(&self) -> Option<u32> {
+        self.numbers.last().copied()
+    }
 
-    pub fn highest(&self) -> Option<u32> {}
+    pub fn highest(&self) -> Option<u32> {
+        return self.numbers.iter().max().copied();
+    }
 
-    pub fn highest_three(&self) -> Vec<u32> {}
+    pub fn highest_three(&self) -> Vec<u32> {
+        let mut highest = self.numbers.to_vec();
+        highest.sort_by(|a, b| b.cmp(a));
+        return highest.into_iter().take(3).collect();
+    }
 }
 #[cfg(test)]
 mod tests {
