@@ -120,9 +120,6 @@ impl Iterator for RomanNumber {
 
     fn next(&mut self) -> Option<Self::Item> {
         let value = self.to_u32();
-        if value == 0 {
-            return None;
-        }
         let next_value = value + 1;
         let next_number = RomanNumber::from(next_value);
         self.0 = next_number.0.clone();
