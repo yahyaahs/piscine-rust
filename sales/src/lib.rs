@@ -27,7 +27,7 @@ impl Cart {
         self.receipt.push(find_price(s));
     }
     pub fn generate_receipt(&mut self) -> Vec<f32> {
-        &self.buy.sort_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
+        self.buy.sort_by(|a, b| a.1.partial_cmp(&b.1).unwrap());
         let count = self.buy.len() / 3;
         let find_cheapest = |v: &Vec<(String, f32)>| v.iter().take(count).map(|x| x.1).sum::<f32>();
         let base = find_cheapest(&self.buy);
@@ -39,7 +39,6 @@ impl Cart {
         let mut  rec: Vec<f32> = self.receipt.iter().map(|&el| reduction(el)).collect();
          rec.sort_by(|a, b| a.partial_cmp(b).unwrap());
         return rec;
-;
     }
 }
 
