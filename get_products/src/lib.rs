@@ -3,7 +3,7 @@ pub fn get_products(arr: Vec<usize>) -> Vec<usize> {
     let mut count = 0;
     let mut v = Vec::new();
     if arr.len()==1{
-        return arr;
+        return Vec::new();
     }
     while arr.len() > v.len() {
         for (i, el) in arr.iter().enumerate() {
@@ -25,7 +25,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let arr: Vec<usize> = vec![1, 7, 3, 4];
+        let arr: Vec<usize> = vec![1];
         let output = get_products(arr);
         println!("{:?}", output);
     }
